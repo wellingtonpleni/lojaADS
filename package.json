@@ -1,0 +1,22 @@
+{
+  "name": "loja",
+  "version": "1.0.0",
+  "description": "Backend Node JS para app Loja",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "stored",
+    "procedure",
+    "sql",
+    "server",
+    "node",
+    "js"
+  ],
+  "author": "Wellington",
+  "license": "MIT",
+  "dependencies": {
+    "mssql": "^7.2.1"
+  }
+}
