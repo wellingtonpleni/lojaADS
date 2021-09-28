@@ -1,6 +1,7 @@
 {
   "name": "loja",
   "version": "1.0.0",
+  "type": "module",
   "description": "Backend Node JS para app Loja",
   "main": "index.js",
   "scripts": {
@@ -17,6 +18,7 @@
   "author": "Wellington",
   "license": "MIT",
   "dependencies": {
+    "dotenv": "^10.0.0",
     "mssql": "^7.2.1"
   }
 }
