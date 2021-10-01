@@ -1,0 +1,44 @@
+//Teste de requisições REST - produtos
+@baseURL = http://localhost:4000/api
+@codbarras = 1234
+
+###
+//GET - Lista todos os produtos
+GET {{ baseURL }}/produtos
+Content-Type: application/json
+
+###
+//GET - Lista apenas um produto pelo código de barras
+GET {{ baseURL }}/produtos/{{ codbarras }}
+Content-Type: application/json
+
+###
+//POST - Inclui um novo produto
+POST {{ baseURL }}/produtos
+Content-Type: application/json
+
+{
+    "codbarras": "7999",
+    "nome": "Iphone 12",
+    "categoria": "Smartphone",
+    "preco": 4599.99,
+    "inclusao": "2021-10-01"
+}
+
+###
+//PUT - Altera um produto
+PUT {{ baseURL }}/produtos
+Content-Type: application/json
+
+{
+    "codbarras": "7999",
+    "nome": "Iphone 12 PRO",
+    "categoria": "Smartphone",
+    "preco": 6200,
+    "inclusao": "2021-10-01"
+}
+
+###
+//DELETE - Apaga um produto através do código de barras
+DELETE {{ baseURL }}/produtos/{{ codbarras }}
+Content-Type: application/json

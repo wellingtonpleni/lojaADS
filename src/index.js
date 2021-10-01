@@ -1,22 +1,34 @@
-import sql from 'mssql'
-import { sqlConfig } from './sql/config.js'
+import express from 'express'
+const app = express()
+const port = 4000
 
-sql.on('error', err => {
-    console.error(err)
+app.use(express.urlencoded({extended: true})) //Converte caracteres especiais em html entity
+app.use(express.json()) //Executará o Parse no conteúdo JSON
+app.disable('x-powered-by') //Removendo por questões de segurança
+
+import rotasProdutos from './routes/produtos.js'
+
+//Rotas Restfull do app
+app.use('/api/produtos', rotasProdutos)
+
+//Definição da Rota default
+app.get('/api', (req, res) => {
+    res.status(200).json({
+        mensagem: 'API do app Loja 100% funcional!',
+        versao: '1.0.0'
+    })
 })
 
-sql.connect(sqlConfig).then(pool => {
-    //Executar a Stored Procedure
-    return pool.request()
-    .input('codbarras', sql.Char(4), '4321')
-    .input('nome', sql.VarChar(50), 'Refrigerador Brastemp')
-    .input('categoria', sql.VarChar(20), 'Eletrodomésticos')
-    .input('preco', sql.Numeric, 3599)
-    .input('inclusao', sql.SmallDateTime, '2021-09-27')
-    .output('codigogerado', sql.Int)
-    .execute('SP_I_LOJ_PRODUTO')
-}).then(result => {
-    console.log(result)
-}).catch(err => {
-    console.log(err.message)
+//Rota de conteúdo publico
+app.use('/', express.static('public'))
+
+//Rota para tratar erros 404
+app.use(function(req, res) {
+    res.status(404).json({
+        mensagem: `A rota ${req.originalUrl} não existe!`
+    })
+})
+
+app.listen(port, function() {
+    console.log(`Servidor web rodando na porta ${port}`)
 })
